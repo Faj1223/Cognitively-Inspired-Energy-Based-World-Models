@@ -9,9 +9,16 @@ Les modèles autorégressifs traditionnels (Transformers, RNNs) prédisent l'ét
 * Évaluer les performances sur la gestion de l'incertitude et le calcul dynamique.
 
 ## 🛠️ Structure du Projet
+
 ```text
-├── models/          # Architectures (EBT, Baselines Transformers/RNNs)
-├── data/            # Scripts de chargement et prétraitement des données
-├── training/        # Boucles d'entraînement et minimisation d'énergie
-├── experiments/     # Scripts d'évaluation et reproduction des résultats
+models/          # Architectures (EBT, Baselines Transformers/RNNs)
+data/            # Scripts de chargement et prétraitement des données
+training/        # Boucles d'entraînement et minimisation d'énergie
+experiments/     # Scripts d'évaluation et reproduction des résultats
+notebooks/
+├── 01_intro_energy_based_models.ipynb    # C'est quoi un EBM, contrastive vs regularized
+├── 02_EBT_architecture.ipynb              # L'architecture EBT, la matrice n×(n+1)
+├── 03_MCMC_langevin.ipynb                 # La boucle MCMC, α, Langevin dynamics, avec visualisations
+└── 04_results_ablations.ipynb             # Reproduction du Table 2, avec tes propres résultats
+
 └── README.md
