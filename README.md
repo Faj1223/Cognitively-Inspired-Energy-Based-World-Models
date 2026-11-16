@@ -101,7 +101,7 @@ espace. L'entraînement combine une énergie de prédiction latente et la régul
 ### Le latent contient l'état physique de la balle
 
 Pas de collapse : l'écart-type des latents reste stable autour de 1,07, et le rang effectif de leur
-covariance atteint **32,0 / 32** — aucune direction du latent n'est inutilisée.
+covariance atteint **32,0 / 32**, aucune direction du latent n'est inutilisée.
 
 Le contenu du latent est mesuré par des sondes entraînées *après coup* sur un encodeur figé
 (les vraies coordonnées ne sont jamais vues par la JEPA) :
@@ -151,7 +151,7 @@ le prédicteur n'a pas mémorisé des séquences de cinq pas mais appris une dyn
 
 L'agent reçoit le but sous forme d'**image** (une balle à l'endroit de la cible), l'encode en
 `s_goal`, et planifie entièrement dans le latent : le coût d'une suite d'actions est la distance
-moyenne entre les latents imaginés et `s_goal`. Aucune coordonnée n'intervient — ni dans
+moyenne entre les latents imaginés et `s_goal`. Aucune coordonnée n'intervient ni dans
 l'observation, ni dans le coût, ni dans le choix de l'action.
 
 | Agent | Réussite | Pas moyens (si réussite) |
@@ -161,8 +161,8 @@ l'observation, ni dans le coût, ni dans le choix de l'action.
 | Oracle (vraie physique) | 100 % | 17,0 |
 
 L'agent JEPA échoue dans la majorité des épisodes, alors que le même planificateur atteint 100 % avec
-la vraie physique. Deux indices orientent le diagnostic : quand il réussit il est **plus rapide que
-l'oracle** (13,4 pas), donc il ne réussit que les cibles déjà proches ; et sur les trajectoires, il
+la vraie physique. Deux indices orientent le diagnostic : quand il réussit il est plus rapide que
+l'oracle (13,4 pas), donc il ne réussit que les cibles déjà proches ; et sur les trajectoires, il
 part dans la bonne direction puis s'immobilise à mi-chemin, signature d'un minimum local du coût.
 
 **Diagnostic**: Pour que le coût guide l'agent, la distance latente à `s_goal` doit croître avec la
@@ -171,13 +171,13 @@ distance réelle à la cible. Mesurée sur 2 000 observations de test, la corré
 sature. Au-delà, le coût est plat, aucune direction n'est préférable, et l'agent s'arrête.
 
 Hypothèse testée et écartée. L'image objectif étant constituée de deux images identiques, elle
-représente une balle immobile — situation jamais rencontrée à l'entraînement, donc potentiellement
+représente une balle immobile, situation jamais rencontrée à l'entraînement, donc potentiellement
 hors distribution. Remplacer cette image fabriquée par une vraie observation du dataset où la balle
 passe au plus près de la cible ne change rien (0,34 contre 0,37).
 
 **Conclusion.** Le problème n'est pas le contenu du latent, que les sondes valident, ni le prédicteur,
 fiable sur 20 pas : c'est la géométrie de l'espace latent. Rien dans l'objectif JEPA n'impose que
-les distances latentes reflètent les distances réelles — la loss demande seulement que le latent soit
+les distances latentes reflètent les distances réelles, la loss demande seulement que le latent soit
 prédictible, varié et décorrélé. Un bon modèle du monde ne suffit donc pas : encore faut-il que
 l'espace où l'on planifie soit muni d'une métrique exploitable.
 
