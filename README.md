@@ -204,7 +204,7 @@ l'espace où l'on planifie soit muni d'une métrique exploitable.
   quasimétrique appris), au lieu de la distance euclidienne.
 - Sous-buts intermédiaires, pour rester dans le voisinage où le coût reste informatif.
 - Distracteurs visuels et dynamique stochastique, pour comparer la JEPA à un modèle qui reconstruit
-  les pixels — c'est là que l'argument de LeCun devient mesurable.
+  les pixels.
 
 ## Lancer le projet
 
